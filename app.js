@@ -12,8 +12,8 @@ salon.config(function($routeProvider) {
     })
     .when('/dodaj/', {
         templateUrl: 'forma.html',
-        controller: 'newCtrl',
-        controllerAs: 'new'
+        controller: 'editCtrl',
+        controllerAs: 'edit'
     })
     .when('/edit/:id', {
         templateUrl: 'forma.html',
@@ -25,6 +25,11 @@ salon.config(function($routeProvider) {
         controller: 'detajlCtrl',
         controllerAs: 'detajl'
     })
+    .when('/removed/', {
+        template: '<h3>Client removed ...</h3>',
+        controller: 'detajlCtrl',
+        controllerAs: 'detajl'
+    })    
 });
 
 salon.service('salonModel', function() {
@@ -108,9 +113,7 @@ salon.controller('editCtrl', [
     
 }]);
 
-salon.controller('newCtrl', ['$location', function($location){
 
-}]);
 
 salon.controller('detajlCtrl', ['salonModel', '$location', '$routeParams', function(salonModel, $location, $routeParams){
     var detajl = this;
@@ -125,6 +128,7 @@ salon.controller('detajlCtrl', ['salonModel', '$location', '$routeParams', funct
 
     detajl.remove = function(){
         salonModel.getClients().splice(id,1)
+        $location.path('/removed/')
         console.log(salonModel.getClients())
     }
 
