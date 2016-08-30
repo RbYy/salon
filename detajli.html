@@ -1,0 +1,30 @@
+<table ng-controller = "detajlCtrl as detajl">
+    <tr>
+        <td>First Name: </td>
+        <td>{{detajl.client.firstname}}</td>
+    </tr>
+    <tr>
+        <td>Last Name: </td>
+        <td>{{detajl.client.lastname}}</td>
+    </tr>
+    <tr>
+        <td>Address: </td>
+        <td>{{detajl.client.address}}</td>
+    </tr>   
+    <tr>
+        <td>Email: </td>
+        <td>{{detajl.client.email}}</td>
+    </tr>  
+    <tr>
+        <td>Phone Number: </td>
+        <td>{{detajl.client.phone}}</td>
+    </tr>
+    <tr>
+        <td>Birth Day: </td>
+        <td>{{detajl.client.birth}}</td>
+    </tr> 
+    <tr>
+        <td><span ng-click="detajl.edit(detajl.client.id)" class="glyphicon glyphicon-pencil"></span></td>
+        <td><span ng-click="detajl.remove(detajl.client.id)" class="glyphicon glyphicon-trash"></span></td>
+    </tr>       
+</table>

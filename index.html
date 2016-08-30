@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html ng-app="salon">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="app.css">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    
+
+
+    <title>Hairdresser's backoffice</title>
+</head>
+    <body ng-controller="MainCtrl as main">
+        <div>
+            <div class="col-md-4">
+                <h3>My Clients</h3>
+                <story class="callout"
+                       ng-repeat="client in main.clients"
+                       ng-click="main.showClient(client.id)"
+                       > </story>
+                <br/>
+                <a class="btn btn-primary" ng-click="main.addClient()">
+                    <span class="glyphicon glyphicon-plus" ></span>
+                </a>
+            </div>
+            <div class="col-md-8 content" ><div ng-view></div>
+
+            </div>
+        </div>
+    </body>
+</html>

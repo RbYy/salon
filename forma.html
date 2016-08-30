@@ -1,0 +1,45 @@
+<h2>Edit data about {{edit.client.firstname}}</h2>
+<form class="form-horizontal" ng-controller="editCtrl as forma">
+    <div class="form-group">
+        <label class="control-label" for="inputTitle">First Name</label>
+        <div class="controls">
+            <input type="text" class="form-control" id="inputTitle" ng-model="edit.client.firstname" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="inputStatus">Surname</label>
+        <div class="controls">
+            <input type="text" class="form-control" id="inputTitle" ng-model="edit.client.lastname" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="inputDescription">Email</label>
+        <div class="controls">
+        <input type="email" class="form-control" id="inputTitle" ng-model="edit.client.email" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="inputAcceptance">Address</label>
+        <div class="controls">
+            <textarea id="inputAcceptance" class="form-control" placeholder="Address" rows="3"
+                      ng-model="edit.client.address"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="inputType">Phone Number</label>
+        <div class="controls">
+        <input type="text" class="form-control" id="inputTitle" ng-model="edit.client.phone" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="inputReporter">Date of Birth</label>
+        <div class="controls">
+        <input type="date" name="bday" mg-model=edit.client.birth>
+        </div>
+    </div>
+
+</form>
