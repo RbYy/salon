@@ -131,6 +131,7 @@ salon.controller('detajlCtrl', [
                salonModel.clients.splice(client,1)
             }
         }
+        $location.path('/removed/')
     }
 }]);
 
