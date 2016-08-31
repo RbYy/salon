@@ -66,16 +66,12 @@ salon.service('salonModel', function() {
 
         ];
 
-
         service.counter = 3
-    service.getClients = function () {
-        return service.clients;
-    };
 });
 
 salon.controller('MainCtrl', function($location, salonModel) {
     var main = this;
-    main.clients = salonModel.getClients();
+    main.clients = salonModel.clients;
 
     main.showClient = function(id){
         url='/detajli/' + id
@@ -83,9 +79,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
         $location.path(url)
     }
     main.addClient = function(){
-        console.log('main.addClient', salonModel.counter)
         var newid = salonModel.counter;
-        console.log('salonModel.counter: ', salonModel.counter, 'newid: ', newid)
 
         newClient = 
             {                
@@ -103,17 +97,17 @@ salon.controller('MainCtrl', function($location, salonModel) {
     }
 });
 
+
 salon.controller('editCtrl', [
-            '$scope',
+            '$filter',
             'salonModel',
-            '$location',
             '$routeParams', 
-            function($scope, salonModel, $location, $routeParams){
+            function($filter, salonModel, $routeParams){
     var edit = this
     id = $routeParams.id
-    edit.client=salonModel.getClients()[id]
-
-    
+    edit.client = $filter('filter')(salonModel.clients, function(d){
+        return d.id == id;
+    })[0];
 }]);
 
 
@@ -121,30 +115,22 @@ salon.controller('editCtrl', [
 salon.controller('detajlCtrl', ['$filter', '$scope', 'salonModel', '$location', '$routeParams', function($filter, $scope, salonModel, $location, $routeParams){
     var detajl = this;
     id = $routeParams.id
-    //detajl.client = salonModel.getClients()[id]
-    detajl.client = $filter('filter')(salonModel.getClients(), function(d){
+    detajl.client = $filter('filter')(salonModel.clients, function(d){
         return d.id == id;
     })[0];
 
-    console.log('client', detajl.client)
 
     detajl.edit = function(){
         $location.path('/edit/' + id)
     }
 
     detajl.remove = function(){
-        for (client in salonModel.getClients()){
-            if (salonModel.getClients()[client].id == id){
-               salonModel.getClients().splice(client,1)
+        for (client in salonModel.clients){
+            if (salonModel.clients[client].id == id){
+               salonModel.clients.splice(client,1)
+            }
         }
-
-        console.log(client)
     }
- 
-        //console.log(salonModel.getClients())
-    }
-
-
 }]);
 
 
