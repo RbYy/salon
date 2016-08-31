@@ -1,8 +1,6 @@
 
 var salon = angular.module('salon', ['ngRoute']);
 
-
-
 salon.config(function($routeProvider) {
     $routeProvider
     .when('/', {
@@ -63,7 +61,6 @@ salon.service('salonModel', function() {
                 phone: '65465445',
                 birth: '6-4-2014',
             },            
-
         ];
 
         service.counter = 3
@@ -74,10 +71,9 @@ salon.controller('MainCtrl', function($location, salonModel) {
     main.clients = salonModel.clients;
 
     main.showClient = function(id){
-        url='/detajli/' + id
-
-        $location.path(url)
+        $location.path('/detajli/' + id)
     }
+
     main.addClient = function(){
         var newid = salonModel.counter;
 
@@ -112,7 +108,12 @@ salon.controller('editCtrl', [
 
 
 
-salon.controller('detajlCtrl', ['$filter', '$scope', 'salonModel', '$location', '$routeParams', function($filter, $scope, salonModel, $location, $routeParams){
+salon.controller('detajlCtrl', [
+            '$filter',
+            'salonModel',
+            '$location',
+            '$routeParams',
+            function($filter, salonModel, $location, $routeParams){
     var detajl = this;
     id = $routeParams.id
     detajl.client = $filter('filter')(salonModel.clients, function(d){
@@ -134,7 +135,7 @@ salon.controller('detajlCtrl', ['$filter', '$scope', 'salonModel', '$location', 
 }]);
 
 
-salon.directive('story', function() {
+salon.directive('client', function() {
     return {
         scope: true,
         replace: true,
