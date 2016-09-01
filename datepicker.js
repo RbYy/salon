@@ -75,7 +75,10 @@ datePicker.controller('DatepickerCtrl', function ($routeParams, salonModel, $sco
 
     setNumberOfDays = function(){
         picker.days = dateService.generateDaysForMonth(picker.month.id, picker.year)
+        console.log(picker.year, picker.month.id, picker.day)
         picker.client.birth = new Date(picker.year, picker.month.id, picker.day)
+        console.log(picker.client.birth)
+        console.log(salonModel.clients)
 
     }
     $scope.$watchGroup(["picker.month.id", "picker.day", "picker.year"], setNumberOfDays)

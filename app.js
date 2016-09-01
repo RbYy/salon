@@ -64,15 +64,22 @@ salon.controller('editCtrl', [
             '$filter',
             'salonModel',
             '$routeParams', 
-            function($filter, salonModel, $routeParams){
+            '$location',
+            function($filter, salonModel, $routeParams, $location){
     var edit = this
     id = $routeParams.id
+
     edit.client = $filter('filter')(salonModel.clients, function(d){
         return d.id == id;
-    })[0];
-    escape= function(s) {
-        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-    };
+        })[0];
+    try{
+        edit.birthday = salonModel.renderBirthday(edit.client)
+    }catch(err){
+        console.log(err)
+        $location.path('/')
+    }
+
+
     edit.phoneRegex = "((((\\+386)|(00386)|0)(\\s|-|\\\/)?(41|40|31|51))(\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9])"
 }]);
 
@@ -87,22 +94,19 @@ salon.controller('detajlCtrl', [
             function($filter, salonModel, $location, $routeParams, dateService){
     var detajl = this;
     id = $routeParams.id
-    detajl.client = $filter('filter')(salonModel.clients, function(d){
-        return d.id == id;
-    })[0];
-
-    if (detajl.client.birth.getFullYear() == 1900){
-        detajl.birthday = 
-            dateService.months[detajl.client.birth.getMonth()].name + ', ' +
-            detajl.client.birth.getDate()
-    }else{
-        detajl.birthday = detajl.client.birth
+    
+    try{
+        detajl.client = $filter('filter')(salonModel.clients, function(d){
+            return d.id == id;
+        })[0];
+        detajl.birthday = salonModel.renderBirthday(detajl.client)
+    }catch(err){
+        $location.path('/')
     }
-
     detajl.edit = function(){
         $location.path('/edit/' + id)
     }
-
+    
     detajl.remove = function(){
         for (client in salonModel.clients){
             if (salonModel.clients[client].id == id){
@@ -122,7 +126,6 @@ salon.directive('client', function() {
                 "<div>\
                     <h4>{{client.id}} :: {{client.firstname}}</h4>\
                     <p>{{client.lastname}}</p>\
-                    <p>{{client.birth | date:'longDate'}}</p>\
                 </div>",
         link: function(scope, element, attrs){
 

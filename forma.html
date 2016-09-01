@@ -16,7 +16,8 @@
     <div class="form-group">
         <label class="control-label" for="inputDescription">Email</label>
         <div class="controls">
-        <input type="email" class="form-control" id="inputTitle" ng-model="edit.client.email" />
+        <input type="email" name="email" class="form-control" id="inputTitle" ng-model="edit.client.email" /><p class="error" ng-show="forma.email.$error.email">
+        Not valid email!</p>
         </div>
     </div>
 
@@ -39,7 +40,7 @@
 
 
     <div ng-controller="DatepickerCtrl as picker">
-        <pre>Selected date is: <em>{{edit.client.birth | date:'fullDate' }}</em></pre>
+        <pre>Selected date is: <em>{{edit.birthday| date:'fullDate' }}</em></pre>
 
 
         <form name="myForm" role="form" novalidate="novalidate" class="form-inline">
