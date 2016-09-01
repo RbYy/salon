@@ -70,6 +70,10 @@ salon.controller('editCtrl', [
     edit.client = $filter('filter')(salonModel.clients, function(d){
         return d.id == id;
     })[0];
+    escape= function(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    };
+    edit.phoneRegex = "((((\\+386)|(00386)|0)(\\s|-|\\\/)?(41|40|31|51))(\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9])"
 }]);
 
 
