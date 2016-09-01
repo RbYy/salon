@@ -21,7 +21,7 @@
     </tr>
     <tr>
         <td>Birth Day: </td>
-        <td>{{detajl.client.birth}}</td>
+        <td>{{detajl.client.birth | date:'longDate'}}</td>
     </tr> 
     <tr>
         <td><span ng-click="detajl.edit(detajl.client.id)" class="glyphicon glyphicon-pencil"></span></td>
