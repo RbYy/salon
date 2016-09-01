@@ -1,5 +1,5 @@
 
-var salon = angular.module('salon', ['ngRoute', 'ui.bootstrap']);
+var salon = angular.module('salon', ['ngRoute', 'datePicker']);
 
 salon.config(function($routeProvider) {
     $routeProvider
@@ -30,41 +30,6 @@ salon.config(function($routeProvider) {
     })    
 });
 
-salon.service('salonModel', function() {
-    var service = this
-
-        service.clients = [
-            {
-                id: 0,
-                firstname: 'Marija',
-                lastname: 'Pomagauka',
-                email: 'marija@pomagaj.mi',
-                address: 'Križ 15,\n5432 Sveta Nebesa',
-                phone: '040666666',
-                birth: new Date(1911, 11, 8),
-            },
-            {
-                id: 1,
-                firstname: 'Pujsa',
-                lastname: 'Pepa',
-                email: 'pujsa@prasica.sem',
-                address: 'svinjak 666',
-                phone: '68468654',
-                birth: new Date(1015,3 ,4),
-            },            
-            {
-                id: 2,
-                firstname: 'Telica',
-                lastname: 'Sentimentalka',
-                email: 'krava@mlekarica.io',
-                address: 'pozimi stala,\npoleti gmajna',
-                phone: '65465445',
-                birth: new Date(2013, 12, 12),
-            },            
-        ];
-
-        service.counter = 3
-});
 
 salon.controller('MainCtrl', function($location, salonModel) {
     var main = this;
@@ -85,7 +50,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 email: '',
                 address: '',
                 phone: '',
-                birth: new Date(1900, 1, 1),
+                birth: new Date(1899, 1, 1),
             },
         salonModel.clients.push(newClient);
         salonModel.counter++
@@ -114,13 +79,21 @@ salon.controller('detajlCtrl', [
             'salonModel',
             '$location',
             '$routeParams',
-            function($filter, salonModel, $location, $routeParams){
+            'dateService',
+            function($filter, salonModel, $location, $routeParams, dateService){
     var detajl = this;
     id = $routeParams.id
     detajl.client = $filter('filter')(salonModel.clients, function(d){
         return d.id == id;
     })[0];
 
+    if (detajl.client.birth.getFullYear() == 1900){
+        detajl.birthday = 
+            dateService.months[detajl.client.birth.getMonth()].name + ', ' +
+            detajl.client.birth.getDate()
+    }else{
+        detajl.birthday = detajl.client.birth
+    }
 
     detajl.edit = function(){
         $location.path('/edit/' + id)
@@ -154,85 +127,3 @@ salon.directive('client', function() {
 });
 
 
-salon.factory('dateService', function(){
-    
-    getFebruaryDays = function(year){
-        if (year % 4 == 0){
-            return 29
-        }else{
-            return 28
-        }
-    }
-
-
-    data =
-    {
-        months:
-        [
-            { id: 0, name: "January", days: 31 },
-            { id: 1, name: "February", days: getFebruaryDays },
-            { id: 2, name: "March", days: 31 },
-            { id: 3, name: "April", days: 30 },
-            { id: 4, name: "May", days: 31 },
-            { id: 5, name: "June", days: 30 },
-            { id: 6, name: "July", days: 31 },
-            { id: 7, name: "August", days: 31 },
-            { id: 8, name: "September", days: 30, },
-            { id: 9, name: "October", days: 31, },
-            { id: 10, name: "November", days: 30 },
-            { id: 11, name: "December", days: 31 },
-        ],
-
-        generateDaysForMonth: function(month, year){
-            days = []
-            var nrDays = null
-            if (month == 1){  // 2: february
-                nrDays = data.months[1].days(year)
-            }else{
-                for (i in data.months){
-                    if (i == month){
-                        nrDays = data.months[i].days
-                    }
-                }
-            }
-            for (var i=1; i <= nrDays; i++){
-                days.push(i)
-            }
-            return days
-        },
-
-        generateYears: function(){
-            years = []
-            for (var i = 1; i<= 116; i++){
-                years.push(i + 1900);
-            }
-            return years
-        },
-    }
-    return data
-})
-
-salon.controller('DatepickerCtrl', function ($routeParams, salonModel, $scope, $filter, dateService) {
-    var picker = this;
-    id = $routeParams.id
-    picker.month ={}
-    picker.client = $filter('filter')(salonModel.clients, function(d){
-        return d.id == id;
-    })[0];
-    picker.months = dateService.months
-    picker.month = picker.months[picker.client.birth.getMonth()]
-    picker.day = picker.client.birth.getDate()
-    picker.year = picker.client.birth.getFullYear()
-    
-
-    picker.days = dateService.generateDaysForMonth(picker.month.id, picker.year)
-    picker.years = dateService.generateYears()
-    setNumberOfDays = function(){
-        picker.days = dateService.generateDaysForMonth(picker.month.id, picker.year)
-        picker.client.birth = new Date(picker.year, picker.month.id, picker.day)
-
-    }
-    $scope.$watchGroup(["picker.month.id", "picker.day", "picker.year"], setNumberOfDays)
-
-  
-});
