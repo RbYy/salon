@@ -1,5 +1,5 @@
 
-var salon = angular.module('salon', ['ngRoute', 'datePicker']);
+var salon = angular.module('salon', ['ngRoute', 'datePicker', 'model']);
 
 salon.config(function($routeProvider) {
     $routeProvider
@@ -36,10 +36,12 @@ salon.controller('MainCtrl', function($location, salonModel) {
     main.clients = salonModel.clients;
 
     main.showClient = function(id){
+        // triggered by clicking on item
         $location.path('/detajli/' + id)
     }
 
     main.addClient = function(){
+        // triggered by "+" button
         var newid = salonModel.counter;
 
         newClient = 
@@ -50,7 +52,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 email: '',
                 address: '',
                 phone: '',
-                birth: new Date(1896, 1, 1),
+                birth: new Date(1896, 0, 1),
             },
         salonModel.clients.push(newClient);
         salonModel.counter++
@@ -60,43 +62,26 @@ salon.controller('MainCtrl', function($location, salonModel) {
 });
 
 
-
-
 salon.controller('editCtrl', [
-            '$scope',
             '$filter',
             'salonModel',
             '$routeParams', 
             '$location',
-            function($scope, $filter, salonModel, $routeParams, $location){
+            function($filter, salonModel, $routeParams, $location){
     var edit = this
-    id = $routeParams.id
+    edit.phoneRegex = salonModel.phoneRegex
 
     edit.client = $filter('filter')(salonModel.clients, function(d){
-        return d.id == id;
+        // get client from list by "id" from URL
+        return d.id == $routeParams.id;
         })[0];
     try{
         edit.birthday = salonModel.renderBirthday(edit.client)
     }catch(err){
         $location.path('/')
     }
-//-------------
 
-    edit.date = edit.client.birth
-    $scope.$watch("edit.date", function(){
-        console.log('edit',  edit.client.birth)
-        console.log('edit.date',  edit.date)
-    })
-
-
-//-------------
-
-
-    edit.phoneRegex = "((((\\+386)|(00386)|0)(\\s|-|\\\/)?(41|40|31|51))(\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9])"
 }]);
-
-
-
 
 
 salon.controller('detajlCtrl', [
@@ -118,10 +103,12 @@ salon.controller('detajlCtrl', [
         $location.path('/')
     }
     detajl.edit = function(){
+        // triggered by "edit (pencil)" button click
         $location.path('/edit/' + id)
     }
     
     detajl.remove = function(){
+        // triggered by trash bin button click
         for (client in salonModel.clients){
             if (salonModel.clients[client].id == id){
                salonModel.clients.splice(client,1)
@@ -133,6 +120,7 @@ salon.controller('detajlCtrl', [
 
 
 salon.directive('client', function() {
+    // render list items
     return {
         scope: true,
         replace: true,
@@ -146,5 +134,3 @@ salon.directive('client', function() {
         }
     }
 });
-
-

@@ -1,4 +1,4 @@
-var model = angular.module('model', ['datePicker']);
+var model = angular.module('model', []);
 
 model.service('salonModel', ['dateService', function(dateService) {
     var service = this
@@ -34,15 +34,16 @@ model.service('salonModel', ['dateService', function(dateService) {
         ];
 
         service.renderBirthday = function(client){
-
+            // render birthday from incomplete date
             if (client.birth.getFullYear() == 1896){
                 rendered = dateService.months[client.birth.getMonth()].name + ', ' + client.birth.getDate()
-                console.log(rendered)
             return rendered
 
             }else{
                 return client.birth
             }
         }
-        service.counter = 3
+        service.counter = 3 //counts the clients
+
+        service.phoneRegex = "((((\\+386)|(00386)|0)(\\s|-|\\\/)?(41|40|31|51))(\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9])"
 }]);
