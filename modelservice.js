@@ -19,7 +19,7 @@ model.service('salonModel', ['dateService', function(dateService) {
                 lastname: 'Pepa',
                 email: 'pujsa@prasica.sem',
                 address: 'svinjak 666',
-                phone: '68468654',
+                phone: '+38640454454',
                 birth: new Date(2015,3 ,4),
             },            
             {
@@ -28,7 +28,7 @@ model.service('salonModel', ['dateService', function(dateService) {
                 lastname: 'Sentimentalka',
                 email: 'krava@mlekarica.io',
                 address: 'pozimi stala,\npoleti gmajna',
-                phone: '65465445',
+                phone: '00386/31/12-56-45',
                 birth: new Date(2013, 12, 12),
             },            
         ];
