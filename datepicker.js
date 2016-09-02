@@ -4,6 +4,7 @@ var datePicker = angular.module('datePicker', ["model"]);
 datePicker.factory('dateService', function(){
     
     getFebruaryDays = function(year){
+        // returns the number of days of february for given year
         if (year % 4 == 0){
             return 29
         }else{
@@ -31,9 +32,11 @@ datePicker.factory('dateService', function(){
         ],
 
         generateDaysForMonth: function(month, year){
+            // generates a list of days (integers) based on given
+            // month and year to use in <select> day element
             days = []
             var nrDays = null
-            if (month == 1){  // 2: february
+            if (month == 1){  // 1: february
                 nrDays = data.months[1].days(year)
             }else{
                 for (i in data.months){
@@ -42,13 +45,16 @@ datePicker.factory('dateService', function(){
                     }
                 }
             }
-            for (var i=1; i <= nrDays; i++){
+            for (var i = 1; i <= nrDays; i++){
                 days.push(i)
             }
+            console.log(days)
             return days
         },
 
         generateYears: function(){
+            // generates a list of years (integers) to 
+            // use in picker <select> year element
             years = []
             for (var i = 1; i<= 116; i++){
                 years.push(i + 1900);
@@ -73,15 +79,40 @@ datePicker.controller('DatepickerCtrl', function ($routeParams, salonModel, $sco
     picker.days = dateService.generateDaysForMonth(picker.month.id, picker.year)
     picker.years = dateService.generateYears()
 
-    setNumberOfDays = function(){
+    $scope.$watchGroup(["picker.month.id", "picker.day", "picker.year"], function(){
         picker.days = dateService.generateDaysForMonth(picker.month.id, picker.year)
-        console.log(picker.year, picker.month.id, picker.day)
-        picker.client.birth = new Date(picker.year, picker.month.id, picker.day)
-        console.log(picker.client.birth)
-        console.log(salonModel.clients)
-
-    }
-    $scope.$watchGroup(["picker.month.id", "picker.day", "picker.year"], setNumberOfDays)
+    })
 
   
+});
+
+datePicker.directive('pick', function(dateService){
+    return{
+        restrict: 'EA',
+        templateUrl: 'datepicker.html',
+        replace: 'true',
+        scope: {
+            date:'='
+        },
+        link: function(scope, element, attrs){
+            scope.months = dateService.months
+            scope.day = scope.date.getDate()
+            scope.month = scope.months[scope.date.getMonth()]
+            scope.year = scope.date.getFullYear()             
+            scope.years = dateService.generateYears()
+            scope.days = dateService.generateDaysForMonth(scope.month, scope.year)
+ 
+            
+
+            scope.$watchGroup([
+                "month",
+                "year"],
+                function(){
+                    console.log(scope.year, scope.month.id, scope.day)
+                    scope.days = dateService.generateDaysForMonth(scope.month.id, scope.year)
+                    scope.date = new Date(scope.year, scope.month.id, scope.day)
+                    console.log(scope.date)
+            })
+        }
+    }
 });

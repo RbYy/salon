@@ -35,7 +35,7 @@ model.service('salonModel', ['dateService', function(dateService) {
 
         service.renderBirthday = function(client){
 
-            if (client.birth.getFullYear() == 1899){
+            if (client.birth.getFullYear() == 1896){
                 rendered = dateService.months[client.birth.getMonth()].name + ', ' + client.birth.getDate()
                 console.log(rendered)
             return rendered

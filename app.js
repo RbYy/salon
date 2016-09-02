@@ -50,7 +50,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 email: '',
                 address: '',
                 phone: '',
-                birth: new Date(1899, 1, 1),
+                birth: new Date(1896, 1, 1),
             },
         salonModel.clients.push(newClient);
         salonModel.counter++
@@ -60,12 +60,15 @@ salon.controller('MainCtrl', function($location, salonModel) {
 });
 
 
+
+
 salon.controller('editCtrl', [
+            '$scope',
             '$filter',
             'salonModel',
             '$routeParams', 
             '$location',
-            function($filter, salonModel, $routeParams, $location){
+            function($scope, $filter, salonModel, $routeParams, $location){
     var edit = this
     id = $routeParams.id
 
@@ -75,13 +78,24 @@ salon.controller('editCtrl', [
     try{
         edit.birthday = salonModel.renderBirthday(edit.client)
     }catch(err){
-        console.log(err)
         $location.path('/')
     }
+//-------------
+
+    edit.date = edit.client.birth
+    $scope.$watch("edit.date", function(){
+        console.log('edit',  edit.client.birth)
+        console.log('edit.date',  edit.date)
+    })
+
+
+//-------------
 
 
     edit.phoneRegex = "((((\\+386)|(00386)|0)(\\s|-|\\\/)?(41|40|31|51))(\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9](\\s|-|\\\/)?[0-9])"
 }]);
+
+
 
 
 
