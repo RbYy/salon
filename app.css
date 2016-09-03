@@ -16,8 +16,14 @@
     padding: 20px;
 }
 
+input,
+textarea,
+pre{
+    max-width: 500px;
+}
+
   .full button span {
-    background-color: limegreen;
+    background-color: lime-green;
     border-radius: 32px;
     color: black;
   }
@@ -26,3 +32,7 @@
     border-radius: 32px;
     color: black;
   }
+
+.picker-label{
+  text-align: right;
+}

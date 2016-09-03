@@ -13,9 +13,9 @@
     <script type="text/javascript" src="js/app.js"></script>
     <title>Hairdresser's backoffice</title>
 </head>
-    <body ng-controller="MainCtrl as main">
-        <div>
-            <div class="col-md-4"> <!--  levo  -->
+    <body ng-controller="MainCtrl as main" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3"> <!--  levo  -->
                 <a href="#/"><h3>My Clients</h3></a>
                 <a class="btn btn-primary" ng-click="main.addClient()">
                     <span class="glyphicon glyphicon-plus" ></span>
@@ -29,7 +29,7 @@
                     <br/>
                 </div>
             </div>
-            <div class="col-md-8 content desno" ><div ng-view></div><!--  desno  -->
+            <div class="col-sm-9 content desno" ><div ng-view></div><!--  desno  -->
 
             </div>
         </div>
