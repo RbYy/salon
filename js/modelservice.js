@@ -30,7 +30,16 @@ model.service('salonModel', ['dateService', function(dateService) {
                 address: 'pozimi stala,\npoleti gmajna',
                 phone: '00386/31/12-56-45',
                 birth: new Date(2013, 12, 12),
-            },            
+            },
+            {
+                id: 3,
+                firstname: 'Telica',
+                lastname: 'Sentimentalka',
+                email: 'krava@mlekarica.io',
+                address: 'pozimi stala,\npoleti gmajna',
+                phone: '00386/31/12-56-45',
+                birth: new Date(2016, 8, 3),
+            },                        
         ];
 
         service.renderBirthday = function(client){

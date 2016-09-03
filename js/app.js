@@ -125,12 +125,21 @@ salon.directive('client', function() {
         scope: true,
         replace: true,
         template: 
-                "<div>\
-                    <h4>{{client.id}} :: {{client.firstname}}</h4>\
-                    <p>{{client.lastname}}</p>\
-                </div>",
+                '<div>\
+                    <h4>{{$index+1}} :: {{client.firstname}}\
+                        <span ng-show="birthday" class="glyphicon glyphicon-gift"></span>\
+                    </h4>\
+                    <span>{{client.lastname}}</span>\
+                </div>',
         link: function(scope, element, attrs){
-
+            scope.$watch("client.birth",
+                function(){
+                    if (scope.client.birth.toDateString() == new Date().toDateString()){
+                        scope.birthday = true
+                    }else{
+                        scope.birthday = false
+                    }
+                })
         }
     }
-});
+}); 
