@@ -66,7 +66,7 @@ datePicker.factory('dateService', function(){
 datePicker.directive('pick', function(dateService){
     return{
         restrict: 'EA',
-        templateUrl: 'datepicker-directive/datepicker.html',
+        templateUrl: 'js/datepicker-directive/datepicker.html',
         replace: 'true',
         scope: {
             date:'='
@@ -78,9 +78,7 @@ datePicker.directive('pick', function(dateService){
             scope.year = scope.date.getFullYear()             
             scope.years = dateService.generateYears()
             scope.days = dateService.generateDaysForMonth(scope.month, scope.year)
-            scope.$watchGroup([
-                "month",
-                "year"],
+            scope.$watchGroup(["month", "day", "year"],
                 function(){
                     scope.days = dateService.generateDaysForMonth(scope.month.id, scope.year)
                     scope.date = new Date(scope.year, scope.month.id, scope.day)
