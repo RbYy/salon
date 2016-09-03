@@ -24,7 +24,11 @@
         <td>{{detajl.birthday | date:'longDate'}}</td>
     </tr> 
     <tr>
-        <td><span ng-click="detajl.edit(detajl.client.id)" class="glyphicon glyphicon-pencil"></span></td>
-        <td><span ng-click="detajl.remove(detajl.client.id)" class="glyphicon glyphicon-trash"></span></td>
+        <td>
+            <span class="btn btn-primary" ><span ng-click="detajl.edit(detajl.client.id)" class="glyphicon glyphicon-pencil"></span></span>
+        </td>
+        <td>
+            <span class="btn btn-primary" ><span ng-click="detajl.remove(detajl.client.id)" class="glyphicon glyphicon-trash"></span></span>
+        </td>
     </tr>       
 </table>

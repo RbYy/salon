@@ -1,39 +1,32 @@
 <h2>Edit data about {{edit.client.firstname}}</h2>
 <form class="form-horizontal" name="forma">
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="firstname">First Name</label>
-        <div class="controls">
-            <input type="text" name="firstname" class="form-control" id="firstname" ng-model="edit.client.firstname" />
-        </div>
+        <input type="text" name="firstname" class="form-control col-sm-10" id="firstname" ng-model="edit.client.firstname"/>
     </div>
+
     <div class="form-group">
         <label class="control-label col-sm-2" for="surname">Surname</label>
-        <div class="controls">
-            <input type="text" name="surname" ng-required="true" class="form-control" id="surname" ng-model="edit.client.lastname" />
-        </div>
+        <input type="text" name="surname" ng-required="true" class="form-control col-sm-10" id="surname" ng-model="edit.client.lastname" />
     </div>
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="email">Email</label>
-        <div class="controls">
-            <input type="email" name="email" class="form-control" id="email" ng-model="edit.client.email"/>
-                <span class="error" ng-show="forma.email.$error.email">Not valid email!</span>
-        </div>
+        <input type="email" name="email" class="form-control col-sm-5" id="email" ng-model="edit.client.email">
+            <span class="col-sm-5 error" ng-show="forma.email.$error.email" ng-keyup="edit.validateEmail()">Not a valid email</span>
     </div>
 
     <div class="form-group">
-    <div>
         <label class="control-label col-sm-2" for="address">Address</label>
-
-            <textarea id="address" class="form-control" placeholder="Address" rows="3" ng-model="edit.client.address"></textarea>
-            </div>
+        <textarea id="address" class="form-control col-sm-10" placeholder="Address" rows="3" ng-model="edit.client.address"></textarea>
     </div>
 
     <div class="form-group">
-
         <label class="control-label col-sm-2" for="phone">Phone Number</label>
-        <input type="text" name="phone" id="phone" class="form-control"  ng-pattern="edit.phoneRegex" ng-model="edit.client.phone" />
-        <span class="error" ng-show="forma.phone.$invalid">number not valid</span>
+        <input type="text" name="phone" id="phone" ng-keyup="edit.validatePhone()" class="form-control col-sm-5"  ng-pattern="edit.phoneRegex" ng-model="edit.client.phone"/>
+            <span class="col-sm-5 error" ng-show="forma.phone.$invalid">Not a valid telephone number</span>
+
     </div>
 </form>
 

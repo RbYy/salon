@@ -51,6 +51,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 lastname: '',
                 email: '',
                 address: '',
+                oldphone: '',
                 phone: '',
                 birth: new Date(1896, 0, 1),
             },
@@ -81,6 +82,29 @@ salon.controller('editCtrl', [
         $location.path('/')
     }
 
+    if (edit.client.phone == undefined){
+        edit.client.phone = edit.client.oldphone
+    }
+    if (edit.client.email == undefined){
+        edit.client.email = edit.client.oldemail
+    }
+    edit.validateEmail = function(){
+        console.log(edit.client.email)
+        if (edit.client.email !== undefined){
+            edit.client.oldemail = edit.client.email
+            console.log(edit.client.oldemail,'old')
+            
+        }
+    }
+    edit.validatePhone = function(){
+        console.log(edit.client.phone)
+        if (edit.client.phone !== undefined){
+            edit.client.oldphone = edit.client.phone
+            console.log(edit.client.oldphone,'old')
+            
+        }
+    }
+
 }]);
 
 
@@ -101,6 +125,13 @@ salon.controller('detajlCtrl', [
         detajl.birthday = salonModel.renderBirthday(detajl.client)
     }catch(err){
         $location.path('/')
+    }
+    if (detajl.client.phone == undefined){
+        detajl.client.phone = detajl.client.oldphone
+        console.log(detajl.client.oldphone,'old')
+    }
+    if (detajl.client.email == undefined){
+        detajl.client.email = detajl.client.oldemail
     }
     detajl.edit = function(){
         // triggered by "edit (pencil)" button click
@@ -134,8 +165,10 @@ salon.directive('client', function() {
         link: function(scope, element, attrs){
             scope.$watch("client.birth",
                 function(){
+                    console.log('ggg')
                     if (scope.client.birth.toDateString() == new Date().toDateString()){
                         scope.birthday = true
+                        console.log(scope.client.birth.toDateString(), new Date().toDateString(), scope.birthday)
                     }else{
                         scope.birthday = false
                     }
