@@ -42,6 +42,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
     }
 
     main.addClient = function(){
+
         // triggered by "+" button
         salonModel.counter++
         var newid = salonModel.counter;
@@ -62,6 +63,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
 
 
         $("#scroller").scrollTop($("#scroller")[0].scrollHeight);
+        $('client:last-child').css("background-color", "lightblue")
         $location.path('/edit/' + newid)
     }
 });
