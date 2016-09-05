@@ -31,10 +31,12 @@ salon.config(function($routeProvider) {
 });
 
 
-salon.controller('MainCtrl', function($scope, $location, salonModel, $routeParams) {
-    $('client').removeClass('selected')
+salon.controller('MainCtrl', function(
+        $scope,
+        $location,
+        salonModel,
+        $routeParams) {
     var main = this;
-    main.row=100
     main.color = function(row){
         console.log(row)
         main.row = row   
@@ -50,7 +52,7 @@ salon.controller('MainCtrl', function($scope, $location, salonModel, $routeParam
     main.addClient = function(){
 
         // triggered by "+" button
-        salonModel.counter++
+        main.counter++
         var newid = salonModel.counter;
 
         newClient = 
@@ -100,18 +102,14 @@ salon.controller('editCtrl', [
         edit.client.email = edit.client.oldemail
     }
     edit.validateEmail = function(){
-        console.log(edit.client.email)
         if (edit.client.email !== undefined){
             edit.client.oldemail = edit.client.email
-            console.log(edit.client.oldemail,'old')
             
         }
     }
     edit.validatePhone = function(){
-        console.log(edit.client.phone)
         if (edit.client.phone !== undefined){
             edit.client.oldphone = edit.client.phone
-            console.log(edit.client.oldphone,'old')
             
         }
     }
@@ -139,7 +137,6 @@ salon.controller('detajlCtrl', [
     }
     if (detajl.client.phone == undefined){
         detajl.client.phone = detajl.client.oldphone
-        console.log(detajl.client.oldphone,'old')
     }
     if (detajl.client.email == undefined){
         detajl.client.email = detajl.client.oldemail
