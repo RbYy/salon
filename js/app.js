@@ -31,13 +31,18 @@ salon.config(function($routeProvider) {
 });
 
 
-salon.controller('MainCtrl', function($location, salonModel) {
+salon.controller('MainCtrl', function($scope, $location, salonModel, $routeParams) {
     var main = this;
+    main.urlstate = $routeParams.id-1
     main.clients = salonModel.clients;
+    main.counter = salonModel.counter
+    main.color = function(row){
+        main.row = row
 
-    main.showClient = function(id, row){
+    }
+    main.showClient = function(id){
         // triggered by clicking on item
-        main.selectedRow = row
+        main.urlstate = $routeParams.id
         $location.path('/detajli/' + id)
     }
 
@@ -63,7 +68,6 @@ salon.controller('MainCtrl', function($location, salonModel) {
 
 
         $("#scroller").scrollTop($("#scroller")[0].scrollHeight);
-        $('client:last-child').css("background-color", "lightblue")
         $location.path('/edit/' + newid)
     }
 });
@@ -162,7 +166,7 @@ salon.directive('client', function() {
         scope: true,
         replace: true,
         template: 
-                '<div>\
+                '<div id="client{{$index}}">\
                     <h4>{{$index+1}} :: {{client.firstname}}\
                         <span ng-show="birthday" class="glyphicon glyphicon-gift"></span>\
                     </h4>\
@@ -171,10 +175,8 @@ salon.directive('client', function() {
         link: function(scope, element, attrs){
             scope.$watch("client.birth",
                 function(){
-                    console.log('ggg')
                     if (scope.client.birth.toDateString() == new Date().toDateString()){
                         scope.birthday = true
-                        console.log(scope.client.birth.toDateString(), new Date().toDateString(), scope.birthday)
                     }else{
                         scope.birthday = false
                     }

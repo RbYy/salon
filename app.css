@@ -46,7 +46,9 @@ td {
    padding-right: 20px;
    white-space: pre;
 }
-
+.address {
+  height: 80px;
+}
 .selected{
   background-color: lightblue;
 }
