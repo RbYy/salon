@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
     'js/vendor/angular.js',
     'js/vendor/angular-mocks.js',
-    'js/vendor/angular-route.js'
+    'js/vendor/angular-route.js',
     'js/app.js',
     'js/modelservice.js',
     'js/datepicker-directive/datepicker.js',
@@ -61,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
