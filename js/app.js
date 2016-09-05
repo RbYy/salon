@@ -35,8 +35,9 @@ salon.controller('MainCtrl', function($location, salonModel) {
     var main = this;
     main.clients = salonModel.clients;
 
-    main.showClient = function(id){
+    main.showClient = function(id, row){
         // triggered by clicking on item
+        main.selectedRow = row
         $location.path('/detajli/' + id)
     }
 

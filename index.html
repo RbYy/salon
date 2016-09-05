@@ -22,9 +22,10 @@
                 </a>              
 
                 <div id="scroller">
-                    <client class="callout"
+                    <client class="callout" 
+                           ng-class="{selected:main.selectedRow == $index}"
                            ng-repeat="client in main.clients"
-                           ng-click="main.showClient(client.id)">
+                           ng-click="main.showClient(client.id, $index)">
                     </client>
                     <br/>
                 </div>
