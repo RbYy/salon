@@ -32,17 +32,18 @@ salon.config(function($routeProvider) {
 
 
 salon.controller('MainCtrl', function($scope, $location, salonModel, $routeParams) {
+    $('client').removeClass('selected')
     var main = this;
-    main.urlstate = $routeParams.id-1
+    main.row=100
+    main.color = function(row){
+        console.log(row)
+        main.row = row   
+    }
     main.clients = salonModel.clients;
     main.counter = salonModel.counter
-    main.color = function(row){
-        main.row = row
 
-    }
     main.showClient = function(id){
         // triggered by clicking on item
-        main.urlstate = $routeParams.id
         $location.path('/detajli/' + id)
     }
 

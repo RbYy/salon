@@ -16,7 +16,7 @@
     <body ng-controller="MainCtrl as main" class="container-fluid">
         <div class="row">
             <div class="col-sm-3"> <!--  levo  -->
-                <a href="#/"><h3>My Clients</h3></a>
+                <a href="#/"><h3 ng-click="main.color()">My Clients</h3></a>
                 <a class="btn btn-primary" ng-click="main.color(main.counter+1); main.addClient()">
                     <span class="glyphicon glyphicon-plus" ></span>
                 </a>              
