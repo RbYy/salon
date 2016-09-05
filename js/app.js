@@ -37,6 +37,7 @@ salon.controller('MainCtrl', function(
         salonModel,
         $routeParams) {
     var main = this;
+    main.counter =salonModel.counter
     main.color = function(row){
         console.log(row)
         main.row = row   
@@ -53,7 +54,8 @@ salon.controller('MainCtrl', function(
 
         // triggered by "+" button
         main.counter++
-        var newid = salonModel.counter;
+        
+        var newid = main.counter;
 
         newClient = 
             {                
@@ -69,7 +71,7 @@ salon.controller('MainCtrl', function(
             },
         salonModel.clients.push(newClient);
 
-
+        console.log('newclient', newClient)
         $("#scroller").scrollTop($("#scroller")[0].scrollHeight);
         $location.path('/edit/' + newid)
     }
