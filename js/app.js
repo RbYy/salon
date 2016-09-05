@@ -43,6 +43,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
 
     main.addClient = function(){
         // triggered by "+" button
+        salonModel.counter++
         var newid = salonModel.counter;
 
         newClient = 
@@ -50,6 +51,7 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 id: newid,
                 firstname: '',
                 lastname: '',
+                oldemail: '',
                 email: '',
                 address: '',
                 oldphone: '',
@@ -57,7 +59,8 @@ salon.controller('MainCtrl', function($location, salonModel) {
                 birth: new Date(1896, 0, 1),
             },
         salonModel.clients.push(newClient);
-        salonModel.counter++
+
+
         $("#scroller").scrollTop($("#scroller")[0].scrollHeight);
         $location.path('/edit/' + newid)
     }
