@@ -72,7 +72,6 @@ datePicker.directive('pick', function(dateService){
             date:'='
         },
         link: function(scope, element, attrs){
-            console.log('jjjjj')
             scope.months = dateService.months
             scope.day = scope.date.getDate()
             scope.month = scope.months[scope.date.getMonth()]

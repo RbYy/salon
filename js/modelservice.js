@@ -52,7 +52,7 @@ model.service('salonModel', ['dateService', function(dateService) {
 
         service.renderBirthday = function(client){
             // render birthday from incomplete date
-            if (client.birth.getFullYear() == 1896){
+            if (client.birth.getFullYear() == 1896){ //the fake year that doesn't show up
                 rendered = dateService.months[client.birth.getMonth()].name + ', ' + client.birth.getDate()
             return rendered
 

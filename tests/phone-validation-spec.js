@@ -1,4 +1,4 @@
-describe('editCtrl', function(){
+describe('phone number validation', function(){
     var appCtrl, $scope, form;
  
     beforeEach(module('salon')); 
@@ -7,7 +7,7 @@ describe('editCtrl', function(){
 
         inject(function(
             $controller,
-            $templateCache,
+            //$templateCache,
             $rootScope,
             $filter,
             $routeParams,
